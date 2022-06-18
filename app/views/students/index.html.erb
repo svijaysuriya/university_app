@@ -1,0 +1,17 @@
+<h4 class="center-align">Students</h4>
+<div class="row">
+	<% @students.all.each do|i| %>
+	<div class="col s12 m6">
+		<div class="card blue-grey ">
+			<div class="card-content white-text">
+				<span class = "card-title">Name : <%= i.name %> </span>
+				<p>Email : <%= i.email %> </p>
+				<p> Enrollments </p>
+			</div>
+			<div class="card-action">
+			<%= link_to "View Student" %>  
+			</div>
+		</div>
+	</div>
+	<%end%>
+</div>

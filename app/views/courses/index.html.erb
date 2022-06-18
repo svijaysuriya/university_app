@@ -1,0 +1,16 @@
+<h4 class="center-align">Course Listing Page</h4>
+<div class="row">
+	<% @courses.all.each do|i| %>
+	<div class="col s12 m6">
+		<div class="card blue-grey ">
+			<div class="card-content white-text">
+				<span class = "card-title"><%= i.short_name %> : <%= i.name %></span>
+				<p> <%= i.description %> </p>
+			</div>
+			<div class="card-action">
+			<%= link_to "Info" %> <%= link_to "Enroll" %> 
+			</div>
+		</div>
+	</div>
+	<%end%>
+</div>
