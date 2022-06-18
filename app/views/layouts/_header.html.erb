@@ -1,30 +1,51 @@
 <header>
-    <ul id="dropdown1" class="dropdown-content">
+  <ul id="dropdown1" class="dropdown-content">
     <li><a href="#!">one</a></li>
     <li><a href="#!">two</a></li>
     <li class="divider"></li>
     <li><a href="#!">three</a></li>
-    </ul>
-    <ul id="dropdown2" class="dropdown-content">
+   </ul>
+   <ul id="dropdown2" class="dropdown-content">
     <li><a href="#!">one</a></li>
     <li><a href="#!">two</a></li>
     <li class="divider"></li>
     <li><a href="#!">three</a></li>
-    </ul>
-    <nav>
+  </ul>
+  <nav>
     <div class="nav-wrapper container">
-        <a href="#" class="brand-logo right">AU</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <a href="#" class="brand-logo right">AU</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li><a href="">Home root_path</a></li>
         <li><a href="">About about_path</a></li>
         <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Account<i class="material-icons right">arrow_drop_down</i></a></li>
-        </ul>
+      </ul>
+      <ul class="sidenav" id="mobile-demo">
+        <li><a href="">Home</a></li>
+        <li><a href="">About</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Account<i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
     </div>
-    </nav>
-    <ul class="sidenav" id="mobile-demo">
-    <li><a href="">Home</a></li>
-    <li><a href="">About</a></li>
-    <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Account<i class="material-icons right">arrow_drop_down</i></a></li>
-    </ul>
+  </nav>
+  <% flash.each do |k,v| %>
+    <div class="container">
+      <div class="row-center sign-up-form">
+        <div class="col s12">
+          <% if k == "notice" %>
+            <div class="card-panel green lighten-3" ,id="fade-out-target1">
+              <span class ="white-text">
+                  <%= v %>
+              <span>
+            </div>
+            <% else %>
+            <div class="card-panel red lighten-3" ,id="fade-out-target1">
+              <span class ="white-text">
+                <%= v %>
+              <span>
+            </div>
+          <%end%>
+        </div>
+      </div>  
+    </div>  
+  <% end %>
 </header>
