@@ -8,7 +8,10 @@
 				<p> <%= i.description %> </p>
 			</div>
 			<div class="card-action">
-			<%= link_to "Info" %> <%= link_to "Enroll" %> 
+			<%= link_to "Info" ,course_path(i)%>
+			<% if logged_in? && !(current_user.courses.include?(i))%>
+			 <%= link_to "Enroll" ,course_enroll_path(course_id: i.id),method: :post %> 
+			<% end %>
 			</div>
 		</div>
 	</div>

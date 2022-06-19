@@ -1,7 +1,13 @@
 <header>
   <ul id="dropdown1" class="dropdown-content">
-    <li><%= link_to "View Courses" ,courses_path %> </li>
-    <li><%= link_to "Create a new Course" ,new_course_path %> </li>
+    <li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
+    <li class="divider"></li>
+    <li><a href="#!">three</a></li>
+   </ul>
+   <ul id="dropdown2" class="dropdown-content">
+    <li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
     <li class="divider"></li>
     <li><a href="#!">three</a></li>
   </ul>
@@ -12,25 +18,19 @@
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li><%= link_to "Home" , root_path %></li>
         <li><%= link_to "About" ,about_path %></li>
-        <li><a class="dropdown-trigger" data-target="dropdown1">Course<i class="material-icons right">arrow_drop_down</i></a></li>
         <% if logged_in? %>
-          <li><%= link_to "My Profile", student_path(current_user)%></li>
           <li><%= link_to "logout", logout_path, method: "delete"%></li>
         <% else %>
           <li><%= link_to "Login", login_path%></li>
-          <li><%= link_to "Sigup", new_student_path%></li>
         <%end%>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Account<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
       <ul class="sidenav" id="mobile-demo">
-        <li><%= link_to "Home" , root_path %></li>
-        <li><%= link_to "About" ,about_path %></li>
-        <% if logged_in? %>
-          <li><%= link_to "My Profile", student_path(current_user)%></li>
-          <li><%= link_to "logout", logout_path, method: "delete"%></li>
-        <% else %>
-          <li><%= link_to "Login", login_path%></li>
-          <li><%= link_to "Sigup", new_student_path%></li>
-        <%end%>
+        <li><a href="">Home</a></li>
+        <li><a href="">About</a></li>
+        <li><%= link_to "Login", login_path%></li>
+        <li><%= link_to "logout", logout_path%></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">Account<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
     </div>
   </nav>
