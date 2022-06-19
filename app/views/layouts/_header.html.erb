@@ -1,7 +1,17 @@
 <header>
   <ul id="dropdown1" class="dropdown-content">
     <li><%= link_to "View Courses" ,courses_path %> </li>
-    <li><%= link_to "Create a new Course" ,new_course_path %> </li>
+    <% if logged_in? && current_user.admin? %>
+      <li><%= link_to "Create a new Course" ,new_course_path %> </li>
+    <% end %>
+    <li class="divider"></li>
+    <li><a href="#!">three</a></li>
+  </ul>
+  <ul id="dropdown2" class="dropdown-content">
+    <li><%= link_to "View Courses" ,courses_path %> </li>
+    <% if logged_in? && current_user.admin? %>
+      <li><%= link_to "Create a new Course" ,new_course_path %> </li>
+    <% end %>
     <li class="divider"></li>
     <li><a href="#!">three</a></li>
   </ul>
@@ -11,7 +21,6 @@
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li><%= link_to "Home" , root_path %></li>
-        <li><%= link_to "About" ,about_path %></li>
         <li><a class="dropdown-trigger" data-target="dropdown1">Course<i class="material-icons right">arrow_drop_down</i></a></li>
         <% if logged_in? %>
           <li><%= link_to "My Profile", student_path(current_user)%></li>
@@ -23,7 +32,7 @@
       </ul>
       <ul class="sidenav" id="mobile-demo">
         <li><%= link_to "Home" , root_path %></li>
-        <li><%= link_to "About" ,about_path %></li>
+        <li><a class="dropdown-trigger" data-target="dropdown2">Course<i class="material-icons right">arrow_drop_down</i></a></li>
         <% if logged_in? %>
           <li><%= link_to "My Profile", student_path(current_user)%></li>
           <li><%= link_to "logout", logout_path, method: "delete"%></li>

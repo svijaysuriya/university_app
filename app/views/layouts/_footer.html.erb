@@ -2,22 +2,21 @@
   <div class="container">
      <div class="row">
       <div class="col l6 s12">
-        <h5 class="white-text">AU</h5>
-        <p class="grey-text text-lighten-4">App for college students </p>
+        <h5 class="white-text">Univ App</h5>
+        <p class="grey-text text-lighten-4">App for college</p>
       </div>
       <div class="col l4 offset-l2 s12">
         <h5 class="white-text">Links</h5>
         <ul>
-          <li><a class="grey-text text-lighten-3" href="#!">help</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">about</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">contact</a></li>
+          <li><%= link_to "about", about_path, class: "grey-text text-lighten-3"%></li>
+          <li><%= link_to "contact", about_path, class: "grey-text text-lighten-3"%></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="footer-copyright">
     <div class="container">
-      © 2022 AU
+      © 2022 Univ App
     </div>
   </div>
 </footer>

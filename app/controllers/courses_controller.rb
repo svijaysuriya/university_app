@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
-    before_action :set_course ,only: [:show, :edit, :update]
-
+    before_action :set_course ,only: [:show, :edit, :update, :destroy]
+    before_action :require_admin, except: [:show, :index]
     def show
 
     end
@@ -28,11 +28,18 @@ class CoursesController < ApplicationController
     end
 
     def update
-
+      if @course.update(course_params)
+        flash[:notice] = "#{@course.name} Course is successfully updated!"
+        redirect_to course_path(@course)
+      else 
+        render 'edit'
+      end
     end
 
     def destroy
-
+      @course.destroy
+      flash[:notice] = "Course deleted successfully :)"
+      redirect_to courses_path
     end
 
     private
@@ -45,10 +52,10 @@ class CoursesController < ApplicationController
         params.require(:course).permit(:short_name, :name, :description)
       end
     
-      def require_same_user
-        if current_user!= @student
-          flash[:alert] = "U can edit your own profile :)"
-          redirect_to student_path(current_user)
+      def require_admin
+        if !(logged_in? && current_user.admin?)
+          flash[:alert] = "only admin can a create course :)"
+          redirect_to courses_path
         end
       end
 
