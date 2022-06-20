@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row-center sign-up-form">
+		<div class="col s12">
+			<div class="card-panel">
+				<h3 class="header center-align">Create a poll</h3>
+				<div class="row">
+					<%= form_for( :polling , html: {class:"col s12"})do |f| %>
+						<div class="row">
+							<div class="input-field cols12">
+              <%= f.collection_select( :course_ids, Course.where(category: "hardcore").order(:name), :id, :name,
+              {prompt: "make your selection( can be empty) "},{multiple:true, size:3, class: "custom-select shadow rounded"}) %>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field cols12">
+								<%= f.button( '<i class="material-icons right">arrow_forward</i>Create Poll'.html_safe , class: "btn orange waves-effect waves-light right" ) %>
+							</div>
+						</div>
+					<%end%>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

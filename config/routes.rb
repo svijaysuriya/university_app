@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   root 'pages#home'
   get 'about', to:'pages#about'
   resources :courses
-  resources :students, except: [:destroy]
+  resources :users, except: [:destroy]
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
   post 'course_enroll', to: 'student_courses#create'
+  get 'polling', to: 'pages#polling'
 end

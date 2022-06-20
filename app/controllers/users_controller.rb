@@ -1,21 +1,22 @@
-class StudentsController < ApplicationController
-    before_action :set_student ,only: [:show, :edit, :update]
+class UsersController < ApplicationController
+    before_action :set_user ,only: [:show, :edit, :update]
     before_action :require_user
     before_action :require_same_user, only: [:edit,:update]
 
     def index
-      @students = Student.all
+      @users = User.all
     end
 
     def new
-      @student = Student.new
+      @user = User.new
     end
 
     def create
-      @student = Student.new(student_params)
-      if @student.save
+      @user = User.new(student_params)
+      byebug
+      if @user.save
         flash[:notice] = "You have successfully signed up"
-        redirect_to @student
+        redirect_to @user
       else
         render 'new'
       end
@@ -28,9 +29,9 @@ class StudentsController < ApplicationController
     end
 
     def update
-      if @student.update(student_params)
+      if @user.update(student_params)
         flash[:notice] = "Your profile updated successfully!"
-        redirect_to (@student)
+        redirect_to (@user)
       else 
         render 'edit'
       end
@@ -38,18 +39,18 @@ class StudentsController < ApplicationController
 
     private
 
-    def set_student
-      @student = Student.find(params[:id])
+    def set_user
+      @user = User.find(params[:id])
     end
 
     def student_params
-      params.require(:student).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :ustype)
     end
 
     def require_same_user
-      if current_user!= @student
+      if current_user!= @user
         flash[:alert] = "U can edit your own profile :)"
-        redirect_to student_path(current_user)
+        redirect_to user_path(current_user)
       end
     end
 end
