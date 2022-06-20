@@ -26,6 +26,18 @@
 						</div>
 						<div class="row">
 							<div class="input-field cols12">
+								<%= f.text_field :max_limit, placeholder: "maximum number of students that could be enrolled", autofocus: true %>
+								<%= f.label :max_limit, class: "active" %>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field cols12">
+								<%= f.text_field :category, placeholder: "enter the category", autofocus: true %>
+								<%= f.label :category, class: "active" %>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field cols12">
 								<%= f.button( @course.new_record? ? '<i class="material-icons right">arrow_forward</i>Create Course'.html_safe : '<i class="material-icons right">arrow_forward</i>Update Course'.html_safe, class: "btn orange waves-effect waves-light right" ) %>
 							</div>
 						</div>

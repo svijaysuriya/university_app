@@ -4,6 +4,7 @@
 			<div class="card-content white-text">
 				<span class = "card-title"><p><strong class="black-text"><%= @course.short_name %> : </strong>  <%= @course.name %> </span>
 				<p><strong class="black-text">Description : </strong> <%= @course.description %> </p>
+				<p><strong class="black-text">Category : </strong> <%= @course.category %> </p>
 				<p><strong class="black-text">Enrolled Students : </strong> <%= @course.enrolled_students %> / <%= @course.max_limit %> 
 					<% if @course.students.empty? %>
 						None

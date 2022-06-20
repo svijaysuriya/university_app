@@ -2,11 +2,12 @@
 <div class="row">
 	<% @courses.all.each do|i| %>
 	<div class="col s12 m6">
-		<div class="card blue-grey ">
+		<div class="card blue-grey darken-3">
 			<div class="card-content white-text">
-				<span class = "card-title"><%= i.short_name %> : <%= i.name %></span>
+				<span class = "card-title   text-bold"><%= i.short_name %> : <%= i.name %></span>
 				<p> <%= i.description %> </p>
-				<p><strong >Enrolled Students : </strong> <%= i.enrolled_students %> / <%= i.max_limit %> </p>
+				<p><strong class="grey-text">Category : </strong> <%= i.category %> </p>
+				<p><strong class="grey-text">Enrolled Students : </strong> <%= i.enrolled_students %> / <%= i.max_limit %> </p>
 			</div>
 			<div class="card-action">
 			<%= link_to "Info" ,course_path(i)%>
