@@ -26,6 +26,12 @@
 						</div>
 						<div class="row">
 							<div class="input-field cols12">
+							<%= f.text_field :course_instructor, placeholder: "Enter the course_instructor", autofocus: true %>
+							<%= f.label :course_instructor, class: "active" %>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field cols12">
 								<%= f.text_field :max_limit, placeholder: "maximum number of students that could be enrolled", autofocus: true %>
 								<%= f.label :max_limit, class: "active" %>
 							</div>

@@ -5,11 +5,11 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @student = Student.find_by(email: params[:sessions][:email])
-    if @student && @student.authenticate(params[:sessions][:password])
-      session[:student_id] = @student.id
+    @user = User.find_by(email: params[:sessions][:email])
+    if @user && @user.authenticate(params[:sessions][:password])
+      session[:user_id] = @user.id
       flash[:notice] = "Logged in successfully! :)"
-      redirect_to @student
+      redirect_to @user
     else
       flash.now[:alert] = "login in details incorrect :(" 
       render 'new'
@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:student_id]=nil
+    session[:user_id]=nil
     flash[:notice] = "Logged out successfully! :)"
     redirect_to root_path
   end

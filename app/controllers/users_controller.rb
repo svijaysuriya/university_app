@@ -13,7 +13,6 @@ class UsersController < ApplicationController
 
     def create
       @user = User.new(student_params)
-      byebug
       if @user.save
         flash[:notice] = "You have successfully signed up"
         redirect_to @user

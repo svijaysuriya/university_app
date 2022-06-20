@@ -9,7 +9,7 @@
 					<%if @user.ustype == "student" %>
 						Enrolled Courses :  
 					<%else%>
-						Taking Courses :
+						Handling Courses :
 					<%end%>
 					</strong> <%= @user.courses.count %>
 					<% if !@user.courses.empty? %>

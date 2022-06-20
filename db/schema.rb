@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220620080228) do
+ActiveRecord::Schema.define(version: 20220620083326) do
 
   create_table "courses", force: :cascade do |t|
     t.string "short_name"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20220620080228) do
     t.integer "max_limit", default: 5
     t.integer "enrolled_students", default: 0
     t.string "category", default: "hardcore"
+    t.string "course_instructor"
   end
 
   create_table "student_courses", force: :cascade do |t|

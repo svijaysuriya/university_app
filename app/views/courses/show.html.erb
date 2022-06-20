@@ -4,14 +4,15 @@
 			<div class="card-content white-text">
 				<span class = "card-title"><p><strong class="black-text"><%= @course.short_name %> : </strong>  <%= @course.name %> </span>
 				<p><strong class="black-text">Description : </strong> <%= @course.description %> </p>
+				<p><strong class="black-text">Course Instructor : </strong> <%= link_to @user.name, user_path(@user), class: "grey-text" %> </p>
 				<p><strong class="black-text">Category : </strong> <%= @course.category %> </p>
 				<p><strong class="black-text">Enrolled Students : </strong> <%= @course.enrolled_students %> / <%= @course.max_limit %> 
-					<% if @course.students.empty? %>
+					<% if @course.users.empty? %>
 						None
 					<%else%>
 						<ul>
-							<% @course.students.each do |i| %>
-								<li><pre>             <%=link_to i.name, student_path(i), class:"yellow-text"%></pre></li>
+							<% @course.users.each do |i| %>
+								<li><pre>             <% if i.ustype != "teacher" %><%=link_to i.name, user_path(i), class:"yellow-text"%></pre><%end%></li>
 							<% end %>
 						</ul>
 					</p>
