@@ -25,8 +25,8 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="input-field cols12">
-							<%= f.text_field :course_instructor, placeholder: "Enter the course_instructor", autofocus: true %>
+							<div class="input-field  cols12">
+							<%= f.collection_select(:course_instructor, User.where(ustype: "teacher").order(:name), :id, :name  ,class: "browser-default")%>
 							<%= f.label :course_instructor, class: "active" %>
 							</div>
 						</div>

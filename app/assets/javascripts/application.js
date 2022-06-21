@@ -17,8 +17,16 @@
 //= require_tree .
 
 $( document ).on('turbolinks:load',function() {
+    $('select').formSelect();
     $(".dropdown-trigger").dropdown();
     $('.sidenav').sidenav();
     $('#fade-out-target1').fadeOut(4000);
     $('#fade-out-target2').fadeOut(4000);
 });
+$(document).ready(function(){
+    $('select').formSelect();
+    $(".dropdown-trigger").dropdown();
+    $('.sidenav').sidenav();
+    $('#fade-out-target1').fadeOut(4000);
+    $('#fade-out-target2').fadeOut(4000);
+  });

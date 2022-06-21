@@ -20,7 +20,7 @@
 						</div>
 						<div class="row">
 							<div class="input-field cols12">
-							<%= f.text_field  :ustype, placeholder: "student or teacher" %>
+							<%= f.select :ustype, ['student', 'teacher' ], :prompt => 'User Type' %>
 							<%= f.label :ustype, "User Type",class: "active" %>
 							</div>
 						</div>

@@ -3,6 +3,8 @@ class PagesController < ApplicationController
 
     end
     def polling
+    end
+    def post_polling
         byebug
     end
 end

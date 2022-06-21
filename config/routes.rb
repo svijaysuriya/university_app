@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   post 'course_enroll', to: 'student_courses#create'
   get 'polling', to: 'pages#polling'
+  post 'polling', to: 'pages#post_polling'
 end
