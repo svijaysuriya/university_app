@@ -1,15 +1,27 @@
 <h4 class="center-align">Students</h4>
 <div class="row">
-	<% @students.all.each do|i| %>
+	<% @users.all.each do|i| %>
+	<% if i.admin? %>
+		<% next %>
+	<% end %>
 	<div class="col s12 m6">
-		<div class="card blue-grey ">
+		<div 	class="card blue-grey" %>
 			<div class="card-content white-text">
-				<span class = "card-title">Name : <%= i.name %> </span>
+				<%if i.ustype == "teacher"%>
+					<span class = "card-title red-text">Teacher : <%= i.name %> </span>
+				<%elsif i.ustype == "student"%>
+					<span class = "card-title ">Student : <%= i.name %> </span>
+				<%end%>
 				<p>Email : <%= i.email %> </p>
-				<p> Enrollments </p>
+				<p><%if i.ustype == "student" %>
+						Enrolled Courses :  
+					<%else%>
+						Handling Courses :
+					<%end%> 
+					<%= i.courses.count %> </p>
 			</div>
 			<div class="card-action">
-			<%= link_to "View Student" ,student_path(i)%>  
+			<%= link_to "View User" ,user_path(i)%>  
 			</div>
 		</div>
 	</div>

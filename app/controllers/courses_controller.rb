@@ -26,10 +26,20 @@ class CoursesController < ApplicationController
     end
 
     def edit
-
+      $oldid = User.find_by(name: @course.course_instructor).id
     end
 
     def update
+      @user = User.find_by(name: params[:course][:course_instructor]) 
+      update_student_course = StudentCourse.find_by(course_id: @course.id,user_id:$oldid)
+      
+      update_student_course.user_id = @user.id
+      if update_student_course.save
+        flash[:alert] = "Student Course table is successfully updated!"
+      else
+        flash[:alert] = "something went wrong"
+        byebug
+      end
       if @course.update(course_params)
         flash[:notice] = "#{@course.name} Course is successfully updated!"
         redirect_to course_path(@course)
@@ -56,20 +66,8 @@ class CoursesController < ApplicationController
     
       def require_admin
         if !(logged_in? && current_user.admin?)
-          flash[:alert] = "only admin can a create course :)"
+          flash[:alert] = "only admin can a create or edit course :)"
           redirect_to courses_path
-        end
-      end
-
-      def add_course_to_teacher
-        course_add = Course.find(@course.id)
-        
-        if (!current_user.courses.include?(course_add)) && course_add.save 
-          StudentCourse.create(course: course_add, user: @user)
-          flash[:notice] = "You have succcessfully assigned a #{@user.name} teacher to #{course_add.name} course :)"
-        else
-          course_add.enrolled_students = course_add.enrolled_students 1
-          flash[:notice] = "Something gone wrong with the assignment :("
         end
       end
 end

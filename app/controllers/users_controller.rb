@@ -8,6 +8,10 @@ class UsersController < ApplicationController
     end
 
     def new
+      if logged_in?
+        flash[:alert] = "You are already logged in :)"
+        redirect_to current_user
+      end
       @user = User.new
     end
 
@@ -48,8 +52,13 @@ class UsersController < ApplicationController
 
     def require_same_user
       if current_user!= @user
+        if logged_in?
         flash[:alert] = "U can edit your own profile :)"
         redirect_to user_path(current_user)
+        else
+        flash[:alert] = "You need to login first :)"
+        redirect_to login_path
+        end
       end
     end
 end

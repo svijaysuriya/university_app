@@ -11,9 +11,10 @@
 					<%else%>
 						Handling Courses :
 					<%end%>
-					</strong> <%= @user.courses.count %>
+					</strong> <%= @user.courses.count %><hr/>
 					<% if !@user.courses.empty? %>
 						<ul>
+						  <p><strong class="black-text">Courses</strong></p>
 							<% @user.courses.each do |i| %>
 								<li><pre> <%= link_to i.name, course_path(i), class:"yellow-text" %></pre></li>
 							<% end %>

@@ -6,13 +6,14 @@
 				<p><strong class="black-text">Description : </strong> <%= @course.description %> </p>
 				<p><strong class="black-text">Course Instructor : </strong> <%= link_to @user.name, user_path(@user), class: "grey-text" %> </p>
 				<p><strong class="black-text">Category : </strong> <%= @course.category %> </p>
-				<p><strong class="black-text">Enrolled Students : </strong> <%= @course.enrolled_students %> / <%= @course.max_limit %> 
+				<p><strong class="black-text">Enrollements: </strong> <%= @course.enrolled_students %> / <%= @course.max_limit %> 
+				<hr/><p><strong class="black-text">Students</strong>	
 					<% if @course.users.empty? %>
 						None
 					<%else%>
 						<ul>
 							<% @course.users.each do |i| %>
-								<li><pre>             <% if i.ustype != "teacher" %><%=link_to i.name, user_path(i), class:"yellow-text"%></pre><%end%></li>
+								<li><% if i.ustype != "teacher" %><%=link_to i.name, user_path(i), class:"yellow-text"%><%end%></li>
 							<% end %>
 						</ul>
 					</p>
