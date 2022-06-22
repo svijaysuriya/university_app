@@ -1,0 +1,32 @@
+<%= render 'shared/errors', obj: @question %>
+<div class="container">
+	<div class="row-center sign-up-form">
+		<div class="col s12">
+			<div class="card-panel ">
+				<h3 class="header center-align"><%=@question.new_record? ? "Post a new question " : "Edit a question "%></h3>
+				<div class="row">
+					<%= form_for( @question , html: {class:"col s12"})do |f| %>
+						<div class="row">
+							<div class="input-field cols12">
+								<%= f.text_area :doubt, cols: 30, rows: 10 , placeholder: "Enter your doubt", autofocus: true%>
+								<%= f.label :doubt, class: "active"  %>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field  cols12">
+							<%= f.collection_select(:course_id, Course.all, :id, :name  ,class: "browser-default")%>
+							<%= f.label :course_id, class: "active" %>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field cols12">
+								<%= f.button( @question.new_record? ? '<i class="material-icons right">arrow_forward</i>Post Question'.html_safe : '<i class="material-icons right">arrow_forward</i>Update Question'.html_safe, class: "btn orange waves-effect waves-light right" ) %>
+							</div>
+						</div>
+					<%end%>
+				</div>
+			</div>
+			<p class="center-align"><%= link_to "Cancel and return to Questions", questions_path, class:"center-align" %></p>
+		</div>
+	</div>
+</div>

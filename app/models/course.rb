@@ -8,4 +8,5 @@ class Course < ApplicationRecord
 
     has_many :student_courses
     has_many :users, through: :student_courses
+    has_many :questions, dependent: :destroy
 end

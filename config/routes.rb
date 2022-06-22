@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   post 'course_enroll', to: 'student_courses#create'
   get 'polling', to: 'pages#polling'
   post 'polling', to: 'pages#post_polling'
+  get 'course_questions', to: 'questions#course_questions'
+  resources :questions
+  resources :answers
 end

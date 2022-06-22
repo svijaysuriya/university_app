@@ -5,7 +5,7 @@
 				<div class="card-panel red lighten-3">
 					<span class ="white-text">
 						<strong><%= pluralize(obj.errors.count,"error")%></strong>
-						 prevented you from creating your account!
+						 prevented you from the above action!
 							<ul>
 								<% obj.errors.full_messages.each do |msg| %>
 									<li><%=msg%></li>

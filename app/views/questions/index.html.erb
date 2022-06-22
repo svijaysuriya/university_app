@@ -1,0 +1,26 @@
+<h4 class="center-align">Questions</h4>
+<div class="center-align"><%= link_to '<i class="material-icons right center-align">add</i>New Question'.html_safe, new_question_path ,class: "center-align waves-effect waves-light btn black"%> </div>
+
+<div class="row">
+	<% @questions.each do|i| %>
+	<div class="col s12 ">
+		<div 	class="card blue-grey lighten" %>
+			<div class="card-content white-text">
+				<span class = "waves-effect waves-light btn chip"><%=link_to Course.find(i.course_id).name ,course_questions_path(id:i.course_id)%> </span>
+				<p><strong class="black-text">Doubt : </strong><%= i.doubt %> </p>
+				<small><%= pluralize( Answer.where(question_id: i.id).count, "Answer")%></small>
+			</div>
+			<div class="card-action center-align">
+			
+			<%= link_to "Edit Question", edit_question_path(i), class:"btn waves-effect waves-light grey" %>  
+			<%= link_to("Delete Question", question_path(i), method: "delete", class:"btn waves-effect waves-light red lighten-1", data:{confirm: "Are you sure?"}) %> 
+
+			<%= link_to "View answers", question_path(i), class:"btn waves-effect waves-light blue"%>  
+			<%= link_to "Add answer", new_answer_path(question_id:i.id), class:"btn waves-effect waves-light green"%>  
+			
+			</div>
+		</div>
+	</div>
+	<%end%>
+	<p class="center-align">[ <%= link_to " Return back to All Questions ", questions_path(), class:"center-align" %>]</p>
+</div>

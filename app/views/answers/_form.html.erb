@@ -1,0 +1,36 @@
+<%= render 'shared/errors', obj: @answer %>
+<h4 class="center-align">Question</h4>
+<div class="row">
+	<div class="col s12 m12">
+		<div 	class="card blue-grey lighten" %>
+			<div class="card-content white-text">
+				<p class = "waves-effect waves-light btn chip"><%= link_to Course.find(@question.course_id).name%> 
+				<h3><strong style="font-size 20px; font-weight: bold"><%= @question.doubt %> </strong></h3> 
+        <p class="lime-text">posted by  <%= User.find(@question.user_id).name %>  
+        <small>Created <%= time_ago_in_words(@question.created_at)%>    ago,
+          edited <%=time_ago_in_words(@question.updated_at) %> ago</small></p>
+				<p><%=pluralize( Answer.where(question_id: @question.id).count, "Answer")%></p>
+        <hr/><hr/>
+        <div class="row">
+        <%= form_for( @answer , html: {class:"col s12"})do |f| %>
+          <div class="row">
+            <div class="input-field cols12">
+              <%= f.text_area :solution,cols: 30, rows: 30 , placeholder: "Enter your Answer", autofocus: true%>
+              <%= f.label :solution, class: "active"  %>
+              <%= f.hidden_field :question_id, value: @question.id  %>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="input-field cols12">
+              <%= f.button( @answer.new_record? ? '<i class="material-icons right">arrow_forward</i>Post Answer'.html_safe : '<i class="material-icons right">arrow_forward</i>Update Answer'.html_safe, class: "btn orange waves-effect waves-light right" ) %>
+            </div>
+          </div>
+          <% end %>
+			</div>
+			<div class="card-action">
+			</div>
+		</div>
+	</div>
+  <p class="center-align">[ <%= link_to "Return Back to Question", question_path(@question), class:"center-align" %> ]</p>
+  </div>

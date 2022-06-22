@@ -15,4 +15,6 @@ class User < ApplicationRecord
 
     has_many :student_courses
     has_many :courses, through: :student_courses
+    has_many :questions, dependent: :destroy
+    has_many :answers, dependent: :destroy
 end
