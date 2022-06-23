@@ -1,12 +1,12 @@
 <div class="row sign-up-form">
 	<div class="col s12 m8 offset-m2">
-		<div class="card blue-grey ">
+		<div class="card blue-grey lighten-2">
 			<div class="card-content white-text ">
 				<div style="font-size: 20px; font-weight: bold ;">
 					<span class = "card-title center-align">
 						<h4><%=@user.ustype%>
 						<% if current_user == @user %>
-							<%= link_to '<i class="material-icons right">edit</i>'.html_safe, edit_user_path(@user) ,class:"waves-effect waves-light btn" %>
+							<%= link_to '<i class="material-icons right">edit</i>'.html_safe, edit_user_path(@user) ,class:"waves-effect waves-light btn pl0" %>
 						<% end %>	</h4>
 					</span>
 					<p><strong class="black-text">Name  : </strong>  <%= @user.name %> 
@@ -25,7 +25,7 @@
 						<ul>
 							<p><strong class="black-text">Courses List</strong></p>
 							<% @user.courses.each do |i| %>
-								<li><pre> <%= link_to i.name, course_path(i), class:"yellow-text" %></pre></li>
+								<li><pre> <%= link_to i.name, course_path(i), class:"blue-text" %></pre></li>
 							<% end %>
 						</ul>
 					<% elsif !@user.admin? %>

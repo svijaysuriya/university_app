@@ -10,24 +10,36 @@
 				<p><strong class="grey-text">Enrolled Students : </strong> <%= i.enrolled_students %> / <%= i.max_limit %> </p>
 			</div>
 			<div class="card-action">
-			<%= link_to "Info" ,course_path(i)%>
-			<%= link_to "Questions" ,course_questions_path(id:i.id)%>
+			<div class="row">
+			<div class="col s3 center-align">
+				<%= link_to "Info" ,course_path(i)%>
+			</div>
+			<div class="col s3 center-align">
+				<%= link_to "Questions" ,course_questions_path(id:i.id)%>
+			</div>
 			<% if logged_in? %>
 				<%if current_user.admin? %>
+				<div class="col s3 center-align">
 					<%= link_to "Edit Course", edit_course_path(i) %>
+				</div>
+				<div class="col s3 center-align">
 					<%= link_to "Delete Course", course_path(i), method: :delete, data:{confirm: "Are you sure?",class:"btn btn-outline-danger"}%>
-				
+				</div>
 				<% elsif current_user.ustype=="teacher" %>
+				<div class="col s3 center-align">
 					<strong class="white-text">Handled By : </strong> <%= link_to i.course_instructor, user_path(User.find_by(name: i.course_instructor)) %>
-					
+				</div>	
 				<% elsif current_user.ustype = "student"%>
 					<% if !(current_user.courses.include?(i))%>
+					<div class="col s3 center-align">
 						<%= link_to "Enroll" ,course_enroll_path(course_id: i.id),method: :post ,data:{confirm: "Are you sure?"}%> 
+					</div>
 					<% else %>
 						<strong class="green-text text-darken ">Enrolled</strong>
 					<% end %>
 				<% end %>
 			<% end %>
+			</div>
 			</div>
 		</div>
 	</div>

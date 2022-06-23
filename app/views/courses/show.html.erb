@@ -1,22 +1,22 @@
 <div class="container row sign-up-form">
 	<div class="col s12 m12">
-		<div class="card blue-grey ">
+		<div class="card blue-grey lighten-2 ">
 			<div class="card-content white-text">
 				<div style="font-size: 20px; font-weight: bold ;">
 					<p><strong class="black-text">Short Name : </strong> <%= @course.short_name %>
 					<p><strong class="black-text">Course Name : </strong>  <%= @course.name %> </p>
 					<p><strong class="black-text">Description : </strong> <%= @course.description %> </p>
-					<p><strong class="black-text">Course Instructor : </strong> <%= link_to @user.name, user_path(@user), class: "grey-text" %> </p>
+					<p><strong class="black-text">Course Instructor : </strong> <%= link_to @user.name, user_path(@user), class: "blue-text" %> </p>
 					<p><strong class="black-text">Enrollements: </strong> <%= @course.enrolled_students %> / <%= @course.max_limit %> 
 					<p><%= link_to "Questions" ,course_questions_path(id:@course.id),class:"white-text waves-effect waves-light  btn blue"%></p>
 
 					<hr/><p><strong class="black-text">Students List </strong>	
-						<% if @course.users.empty? %>
-							None
+						<% if @course.enrolled_students == 0 %>
+							: None
 						<%else%>
 							<ul>
-								<% @course.users.each do |i| %>
-									<li><% if i.ustype == "student" %><%=link_to i.name, user_path(i), class:"yellow-text"%><%end%></li>
+								<% @course.users.where(ustype:"student").each do |i| %>
+									<li><%=link_to i.name, user_path(i), class:"blue-text"%></li>
 								<% end %>
 							</ul>
 						</p>
