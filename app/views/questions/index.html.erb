@@ -1,26 +1,53 @@
-<h4 class="center-align">Questions</h4>
-<div class="center-align"><%= link_to '<i class="material-icons right center-align">add</i>New Question'.html_safe, new_question_path ,class: "center-align waves-effect waves-light btn black"%> </div>
-
+<h4 class="center-align">
+	<% if params[:id] %> 
+		<%= Course.find(params[:id]).name %> 
+	<% end %>
+	Questions	</h4>
+	<div class="center-align">
+	<% if params[:id] %> 
+		<p class="center-align"><%= link_to '<i class="material-icons right center-align">visibility</i>View All Questions'.html_safe, questions_path(), class:"center-align waves-effect waves-light btn blue" %></p>
+	<% end %>
+		<% if logged_in?  %>
+			<%= link_to '<i class="material-icons right center-align">add</i>New Question'.html_safe, new_question_path ,class: "center-align waves-effect waves-light btn green"%>
+  </div>
+		<% end %>
+		<br/>
 <div class="row">
 	<% @questions.each do|i| %>
-	<div class="col s12 ">
-		<div 	class="card blue-grey lighten" %>
+	<div class="col s12 m6">
+		<div 	class="card blue-grey lighten-1" %>
 			<div class="card-content white-text">
-				<span class = "waves-effect waves-light btn chip"><%=link_to Course.find(i.course_id).name ,course_questions_path(id:i.course_id)%> </span>
-				<p><strong class="black-text">Doubt : </strong><%= i.doubt %> </p>
-				<small><%= pluralize( Answer.where(question_id: i.id).count, "Answer")%></small>
+			<%if params[:id] == nil %>
+				<span ><%=link_to Course.find(i.course_id).name ,course_questions_path(id:i.course_id),class:"waves-effect waves-light btn chip"%> 
+				</span>
+			<%end%>
+				<p><h5><strong class="black-text">Question : </strong><%= i.doubt %>
+					<% if logged_in? and current_user.id == i.user_id %>
+						<%= link_to '<i class="material-icons">edit</i>'.html_safe, edit_question_path(i), class:"btn waves-effect waves-light blue" %>
+						<%= link_to('<i class="material-icons">delete</i>'.html_safe, question_path(i), method: "delete", class:"btn waves-effect waves-light red lighten-1", data:{confirm: "Are you sure?"}) %> 
+					<% end %>  </h5>
+					<p class="right-align"><%= pluralize( Answer.where(question_id: i.id).count, "Answer")%>
+					||<% if i.view_count == nil %>
+							no views
+						<%else %>
+							<%= i.view_count %> views
+						<% end %>
+						||<% if i.vote_count == nil %>
+							0 votes
+						<%else %>
+							<%= i.vote_count %> votes
+						<% end %>
+					</p>
+				</p>
 			</div>
 			<div class="card-action center-align">
 			
-			<%= link_to "Edit Question", edit_question_path(i), class:"btn waves-effect waves-light grey" %>  
-			<%= link_to("Delete Question", question_path(i), method: "delete", class:"btn waves-effect waves-light red lighten-1", data:{confirm: "Are you sure?"}) %> 
-
 			<%= link_to "View answers", question_path(i), class:"btn waves-effect waves-light blue"%>  
-			<%= link_to "Add answer", new_answer_path(question_id:i.id), class:"btn waves-effect waves-light green"%>  
-			
+			<% if logged_in? %>
+				<%= link_to "Add answer", new_answer_path(question_id:i.id), class:"btn waves-effect waves-light green"%>  
+			<% end %>
 			</div>
 		</div>
 	</div>
 	<%end%>
-	<p class="center-align">[ <%= link_to " Return back to All Questions ", questions_path(), class:"center-align" %>]</p>
 </div>

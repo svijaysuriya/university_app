@@ -3,10 +3,9 @@ class Course < ApplicationRecord
     validates :name, presence: true, length: {minimum:5, maximum:50},uniqueness: { case_sensitive: false }
     validates :course_instructor, presence: true
     validates :max_limit, presence: true
-    validates :category, presence: true
     validates :description, presence: true, length: {minimum:5, maximum:200}
 
-    has_many :student_courses
+    has_many :student_courses, dependent: :delete_all
     has_many :users, through: :student_courses
-    has_many :questions, dependent: :destroy
+    has_many :questions, dependent: :delete_all
 end

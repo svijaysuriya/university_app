@@ -26,7 +26,7 @@
 						</div>
 						<div class="row">
 							<div class="input-field  cols12">
-							<%= f.collection_select(:course_instructor, User.where(ustype: "teacher").order(:name), :id, :name  ,class: "browser-default")%>
+							<%= f.collection_select(:course_instructor, User.where(ustype: "teacher").order(:name), :name, :name  ,class: "browser-default")%>
 							<%= f.label :course_instructor, class: "active" %>
 							</div>
 						</div>
@@ -36,12 +36,7 @@
 								<%= f.label :max_limit, class: "active" %>
 							</div>
 						</div>
-						<div class="row">
-							<div class="input-field cols12">
-								<%= f.text_field :category, placeholder: "enter the category", autofocus: true %>
-								<%= f.label :category, class: "active" %>
-							</div>
-						</div>
+						
 						<div class="row">
 							<div class="input-field cols12">
 								<%= f.button( @course.new_record? ? '<i class="material-icons right">arrow_forward</i>Create Course'.html_safe : '<i class="material-icons right">arrow_forward</i>Update Course'.html_safe, class: "btn orange waves-effect waves-light right" ) %>

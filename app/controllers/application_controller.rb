@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
     if logged_in?
       current_user
     else
-      nil
+      flash[:alert] = "You must be logged in to perform this action"
+      redirect_to login_path
     end
   end
 end

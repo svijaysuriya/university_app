@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
   post 'course_enroll', to: 'student_courses#create'
-  get 'polling', to: 'pages#polling'
-  post 'polling', to: 'pages#post_polling'
+  # get 'polling', to: 'pages#polling'
+  # post 'polling', to: 'pages#post_polling'
   get 'course_questions', to: 'questions#course_questions'
   resources :questions
   resources :answers
+  get 'question_vote', to: 'questions#question_vote'
+  get 'answer_vote', to: 'questions#answer_vote'
 end

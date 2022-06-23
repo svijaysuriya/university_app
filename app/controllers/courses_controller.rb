@@ -1,6 +1,8 @@
 class CoursesController < ApplicationController
+    skip_before_action :require_user, only:[:show, :index]
     before_action :set_course ,only: [:show, :edit, :update, :destroy]
     before_action :require_admin, except: [:show, :index]
+    
     def show
       @user = User.find_by(name: @course.course_instructor) 
     end
@@ -17,10 +19,10 @@ class CoursesController < ApplicationController
       @course = Course.new(course_params)
       @user = User.find_by(name: @course.course_instructor) 
       temp=1
-      byebug
-      if @course.save
+      # byebug
+      if @course.valid? && @user.present?
         if (@user && (!@user.courses.include?(@course)))
-          if StudentCourse.create(course: @course, user: @user)
+          if @course.save && StudentCourse.create(course: @course, user: @user)
             flash[:notice] = "You have successfully created a course :)"
             redirect_to @course and return 
           else 
@@ -32,10 +34,6 @@ class CoursesController < ApplicationController
       else 
         flash[:alert] = "Something gone wrong with the creation of new course :("
         temp=4
-      end
-
-      if temp==0 || temp==2
-        Course.last.destroy
       end
       render 'edit'
     end
@@ -78,7 +76,7 @@ class CoursesController < ApplicationController
       end
     
       def course_params
-        params.require(:course).permit(:short_name, :name, :description,:course_instructor,:max_limit,:category)
+        params.require(:course).permit(:short_name, :name, :description,:course_instructor,:max_limit)
       end
     
       def require_admin

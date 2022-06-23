@@ -13,8 +13,8 @@ class User < ApplicationRecord
     
     has_secure_password
 
-    has_many :student_courses
+    has_many :student_courses, dependent: :delete_all
     has_many :courses, through: :student_courses
-    has_many :questions, dependent: :destroy
-    has_many :answers, dependent: :destroy
+    has_many :questions, dependent: :delete_all
+    has_many :answers, dependent: :delete_all
 end

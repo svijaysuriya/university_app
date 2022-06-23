@@ -1,37 +1,92 @@
-<h4 class="center-align">Questions</h4>
-<div class="row">
-	<div class="col s12 m12">
-		<div 	class="card grey darken-2" %>
-			<div class="card-content white-text">
-				<p class = "waves-effect waves-light btn chip"><%=link_to Course.find(@question.course_id).name%> 
-				<h3><strong style="font-size 20px; font-weight: bold"><%= @question.doubt %> </strong></h3> 
-        <p class="lime-text">posted by  <%= User.find(@question.user_id).name %>  
-        <small>Created <%= time_ago_in_words(@question.created_at)%>    ago,
-          edited <%=time_ago_in_words(@question.updated_at) %> ago</small></p>
-				<p><%=pluralize( Answer.where(question_id: @question.id).count, "Answer")%></p>
-        <% Answer.where(question_id: @question.id).each do |i|%>
-          <hr/>						<div class="card black ">
-					<% if User.find(i.user_id).ustype == "teacher" %>
-							<h6 class="red lighten-2 s12 offset-s2 " >   <%= simple_format(i.solution) %></h6>
-							
-					<% else  %>
-							<h6 class=" s12 offset-s2 " >   <%= simple_format(i.solution )%></h6>
-					<% end %>
+<p class="center-align"><%= link_to '<i class="material-icons right center-align">visibility</i>View All Questions'.html_safe, questions_path(), class:"center-align waves-effect waves-light btn blue" %></p>
+<h4 class="center-align">Question</h4>
 
-					<p class="card grey col s8 offset-s4">answered by  <%= User.find(i.user_id).name %>  
-         	<small >Created <%= time_ago_in_words(i.created_at)%>    ago,
-          edited <%=time_ago_in_words(i.updated_at) %> ago</small></p>
-					<br/><br/>
-					<%= link_to "Edit Answer", edit_answer_path(i,question_id: @question.id) , class:"btn waves-effect waves-light blue"%>  
-					<%= link_to("Delete Answer", answer_path(i), method: "delete", class:"btn waves-effect waves-light red lighten-1", data:{confirm: "Are you sure?"}) %>  
+<div class="row ">
+	<div class="col s12 m12">
+		<div 	class="card grey lighten-4" %>
+			<div class="card-content black-text valign">
+				<div class="row">
+					<div class="col s6">
+						<%=link_to Course.find(@question.course_id).name,course_questions_path(id:@question.course_id),class:"waves-effect waves-light btn chip"%> 
+					</div>
+					<div class="col s6">
+						<% if logged_in? %>
+							<%= link_to 'Add Answer', new_answer_path(question_id:@question.id), class:"btn waves-effect waves-light green" %>  
+						<% end %>
+					</div>
+				</div>
+				<hr/>
+				<div class = "row valign-wrapper question-row">
+					<div class="col s6">votes : 
+						<% if @question.vote_count %>
+							<%= @question.vote_count %>
+						<% else %>
+							0
+						<% end %>
+							
+						<%= link_to '<i class="material-icons">thumb_up</i>'.html_safe, question_vote_path(val:1,id:@question.id) %>
+						<%= link_to '<i class="material-icons">thumb_down</i>'.html_safe,question_vote_path(val:-1,id:@question.id)%>
+						</div>
+						<div class="col s6 	center-align">
+							view count : 
+							<% if @question.view_count == nil %>
+								0 
+							<%else %>
+								<%= @question.view_count %> 
+							<% end %>
+						</div>
+					</div>
+					<h3 style="margin-top: -15px;">
+						<strong style="font-size: 40px; font-weight: bold ;"><%= @question.doubt %> </strong>
+						<% if logged_in? && current_user.id == @question.user_id %>
+							<%= link_to '<i class="material-icons">edit</i>'.html_safe, edit_question_path(@question), class:"btn waves-effect waves-light blue" %>  
+						<% end %>
+					</h3> 
+				
+					<div class="row">
+						<div class="col s6">
+							<p><%=pluralize( Answer.where(question_id: @question.id).count, "Answer")%></p>
+						</div>
+						<div class="col s6 center-align">
+							posted by  <%= link_to User.find(@question.user_id).name, user_path(User.find(@question.user_id)) %>
+							|<small> Created <%= time_ago_in_words(@question.created_at)%>    ago</small>
+								|<small> edited <%=time_ago_in_words(@question.updated_at) %> ago</small>
+						</div>
+					</div>
+					<hr/>
+					<% Answer.where(question_id: @question.id).each do |i|%>
+						<br/>
+						<div class="card white">
+							<br/>
+							<div class="row valign-wrapper">
+								<div class="col s2 center-align">
+									<%= i.vote_count %>
+									<%= link_to '<i class="material-icons">thumb_up</i>'.html_safe, answer_vote_path(val:1,id:i.id) %>
+									<%= link_to '<i class="material-icons">thumb_down</i>'.html_safe,answer_vote_path(val:-1,id:i.id)%>
+								</div>
+								<div class="col s10">
+								<%= simple_format(i.solution) %></h6>
+								</div>
+							</div>
+							<hr/>	
+							<div class="row valign-wrapper">
+								<div class="col s4 center-align">
+									<% if logged_in? and current_user.id == i.user_id %>
+										<%= link_to '<i class="material-icons">edit</i>'.html_safe, edit_answer_path(i,question_id: @question.id) , class:"btn waves-effect waves-light blue"%>  
+										<%= link_to('<i class="material-icons">delete</i>'.html_safe, answer_path(i), method: "delete", class:"btn waves-effect waves-light red lighten-1", data:{confirm: "Are you sure?"}) %>  
+									<% end %>
+								</div>
+								<div class=" col s8 center-align">
+									answered by  <%= link_to User.find(i.user_id).name, user_path(User.find(i.user_id)) %>  
+									| <small >Created <%= time_ago_in_words(i.created_at)%>    ago</small>
+									| <small >edited <%=time_ago_in_words(i.updated_at) %> ago</small>
+								</div>
+							</div>
+							<br/>
 						</div>
 					<%end%>
+				</div>
+				<br/>
 			</div>
-			<div class="card-action">
-			<%= link_to "Edit Question", edit_question_path(@question) %>  
-			<%= link_to "Add answer", new_answer_path(question_id:@question.id) %>  
-			</div>
-		</div>
-		<p class="center-align">[ <%= link_to " Return back to Questions ", questions_path(), class:"center-align" %>]</p>
 	</div>
 </div>
